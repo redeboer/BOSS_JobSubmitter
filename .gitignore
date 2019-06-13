@@ -1,0 +1,87 @@
+filenames/*.txt
+
+# Windows files
+desktop.ini
+
+# Visual Studio Code
+.vscode
+*.code-workspace
+
+# Prerequisites
+*.d
+extLibs/**/**
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Fortran module files
+*.mod
+*.smod
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
+
+# BOSS temporary files
+*.bosserr
+*.bosslog
+*.tmp
+
+# CMT files
+cmt
+**.cmtref
+**.fferr
+**.ffwarn
+**.history
+**.in
+**.make
+**.makecmtsave
+**.makesav
+**.shstamp
+**.stamp
+core.*
+fort.*
+
+# CVS files
+CVS
+Entries
+Repository
+Root
+Tag
+
+# Binaries
+**.[oad]
+**.do
+**.exe
+**.make
+**.so
+*ACLiC_dict_rdict.pcm
+execute
+main
+workarea/InstallArea
+
+# Temporary files
+*.bosserr
+*.bosslog
+*.tmp
+temp
+temp.sh
