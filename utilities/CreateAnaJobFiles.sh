@@ -14,15 +14,17 @@ source "${BOSS_JobSubmitter}/utilities/SubmitJobs.sh"
 function CreateAnaJobFiles()
 {
 	local currentPath="$(pwd)"
-	cd "${BOSS_JobSubmitter}"
-	if [[ $? != 0 ]]; then return 1; fi
-
-	CheckIfFolderExists "${BOSS_JobSubmitter}"
-	[[ $? != 0 ]] && return 1
-	CheckIfFolderExists "${BOSS_StarterKit_OutputDir}"
-	[[ $? != 0 ]] && return 1
-	CheckIfFileExists "${templateFile_ana}"
-	[[ $? != 0 ]] && return 1
+	# * ================================ * #
+	# * ------- Check parameters ------- * #
+	# * ================================ * #
+		cd "${BOSS_JobSubmitter}"
+		if [[ $? != 0 ]]; then return 1; fi
+		CheckIfFolderExists "${BOSS_JobSubmitter}"
+		[[ $? != 0 ]] && return 1
+		CheckIfFolderExists "${BOSS_StarterKit_OutputDir}"
+		[[ $? != 0 ]] && return 1
+		CheckIfFileExists "${templateFile_ana}"
+		[[ $? != 0 ]] && return 1
 
 
 	# * =============================== * #
@@ -56,7 +58,7 @@ function CreateAnaJobFiles()
 			echo "${inputJobOptions}" >> "${ofile}"
 		fi
 
-		read -p "(+) From which file or directory should the DST files be loaded? (default: \"directories/incl/Jpsi2009\") " input
+		read -e -p "(+) From which file or directory should the DST files be loaded? (default: \"directories/incl/Jpsi2009\") " input
 		echo "${input}" >> "${ofile}"
 		local inputFiles="${input:-directories/incl/Jpsi2009}"
 		if [[ ! -e "${inputFiles}" ]]; then
@@ -189,5 +191,7 @@ function CreateAnaJobFiles()
 		PrintSuccess \
 			"Succesfully created ${jobNo} \"${packageName}\" job files with ${nEventsPerJob} events each in folder:\n  \"${outputDir_ana}\""
 
+
 	SubmitJobs "${packageName}" "${packageName}_ana"
+	cd "${currentPath}"
 }
