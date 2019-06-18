@@ -1,4 +1,11 @@
-filenames/*.txt
+CreateAnaJobFiles.txt
+CreateSimJobFiles.txt
+
+filenames/*
+sim/*
+rec/*
+ana/*
+sub/*
 
 # Windows files
 desktop.ini

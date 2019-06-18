@@ -6,7 +6,7 @@
 #include "$ROOTIOROOT/share/jobOptions_ReadRec.txt"
 #include "$MAGNETICFIELDROOT/share/MagneticField.txt"
 #include "$ABSCORROOT/share/jobOptions_AbsCor.txt"
-#include "$__PACKAGENAME_CAP__ROOT/share/__PACKAGENAME__.txt"
+#include "__INPUT_JOB_OPTIONS__"
 
 // * ------- ROOT input data file (rec or dst) ------- * //
 EventCnvSvc.digiRootInputFile = {__INPUTFILES__
