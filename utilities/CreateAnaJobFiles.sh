@@ -84,7 +84,9 @@ function CreateAnaJobFiles()
 	# * ------- Create file inventory -------  * #
 	# * ====================================== * #
 		local identifier="${inputFiles//\//_}"
+		[[ ${identifier:0:1} == "_" ]] && identifier=${identifier:1}
 		if [[ -d "${inputFiles}" ]]; then
+			[[ $(basename ${identifier}) =~ "_events" ]] && identifier=$(basename ${inputFiles})
 			CreateFilenameInventoryFromDirectory "${inputFiles}" "${BOSS_JobSubmitter}/filenames/${identifier}.txt" ${nFilesPerJob} "dst"
 			if [[ $? != 0 ]]; then
 				PrintError "Function CreateFilenameInventoryFromDirectory failed"
@@ -116,8 +118,8 @@ function CreateAnaJobFiles()
 			outputDir_ana="${BOSS_JobSubmitter}/ana/${packageName}/${identifier}"
 			outputDir_rec="${BOSS_JobSubmitter}/rec/${packageName}/${identifier}"
 			outputDir_sub="${BOSS_JobSubmitter}/sub/${packageName}/${identifier}"
-			outputDir_root="${BOSS_StarterKit_OutputDir}/root/${packageName}"
-			outputDir_log="${BOSS_StarterKit_OutputDir}/log/${packageName}"
+			outputDir_root="${BOSS_StarterKit_OutputDir}/root/${packageName}/${identifier}"
+			outputDir_log="${BOSS_StarterKit_OutputDir}/log/${packageName}/${identifier}"
 
 		# * User input * #
 			nJobs=$(ls ${searchTerm} | wc -l)
