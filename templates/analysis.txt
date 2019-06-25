@@ -25,4 +25,4 @@ ApplicationMgr.EvtMax = __NEVENTS__;
 ApplicationMgr.HistogramPersistency = "ROOT";
 NTupleSvc.Output = { "FILE1 DATAFILE='__OUTPUTFILE__' OPT='NEW' TYP='ROOT'"};
 
-__PACKAGENAME__.OutFile = "__OUTPUTFILE__";
+// __PACKAGENAME__.OutFile = "__OUTPUTFILE__";

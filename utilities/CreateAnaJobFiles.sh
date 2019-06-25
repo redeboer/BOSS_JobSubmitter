@@ -113,9 +113,9 @@ function CreateAnaJobFiles()
 	# * ============================= * #
 
 		# * Output directories
-			outputDir_ana="${BOSS_JobSubmitter}/ana/${packageName}"
-			outputDir_rec="${BOSS_JobSubmitter}/rec/${packageName}"
-			outputDir_sub="${BOSS_JobSubmitter}/sub/${packageName}"
+			outputDir_ana="${BOSS_JobSubmitter}/ana/${packageName}/${identifier}"
+			outputDir_rec="${BOSS_JobSubmitter}/rec/${packageName}/${identifier}"
+			outputDir_sub="${BOSS_JobSubmitter}/sub/${packageName}/${identifier}"
 			outputDir_root="${BOSS_StarterKit_OutputDir}/root/${packageName}"
 			outputDir_log="${BOSS_StarterKit_OutputDir}/log/${packageName}"
 
@@ -192,6 +192,6 @@ function CreateAnaJobFiles()
 			"Succesfully created ${jobNo} \"${packageName}\" job files with ${nEventsPerJob} events each in folder:\n  \"${outputDir_ana}\""
 
 
-	SubmitJobs "${packageName}" "${packageName}_ana"
+	SubmitJobs "${packageName}/${identifier}" "${packageName}_ana"
 	cd "${currentPath}"
 }
