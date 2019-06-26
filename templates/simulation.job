@@ -27,7 +27,7 @@ BesRndmGenSvc.RndmSeed = __RANDSEED__;
 #include "$CALIBSVCROOT/share/calibConfig_sim.txt"
 
 /// * Run numbers for \f$J/\psi\f$ runs *
-/// ROUND    |  RUNS          |  TYPE  |  DATES         
+/// ROUND    |  RUNS          |  TYPE  |  DATES
 /// -------- | -------------- | ------ | ---------------
 /// round02  |  9947   10878  |  jpsi  |  090612  090728
 /// round05  |  27255  28236  |  jpsi  |  120410  120522

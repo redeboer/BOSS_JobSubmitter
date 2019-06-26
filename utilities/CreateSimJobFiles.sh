@@ -109,7 +109,7 @@ function CreateSimJobFiles()
 
 				# * Generate the simulation files (sim)
 					local randomSeed=$(($(date +%s%N) % 1000000000)) # random seed based on system time
-					local outputFile="${outputDir_sim}/sim_${packageName}_${jobNo}.txt"
+					local outputFile="${outputDir_sim}/sim_${packageName}_${jobNo}.job"
 					awk '{flag = 1}
 						{sub(/__RANDSEED__/,'${randomSeed}')}
 						{sub(/__OUTPUTLEVEL__/,'${outputLevel}')}
@@ -122,7 +122,7 @@ function CreateSimJobFiles()
 					chmod +x "${outputFile}"
 
 				# * Generate the reconstruction files (rec)
-					local outputFile="${outputDir_rec}/rec_${packageName}_${jobNo}.txt"
+					local outputFile="${outputDir_rec}/rec_${packageName}_${jobNo}.job"
 					awk '{flag = 1}
 						{sub(/__RANDSEED__/,'${randomSeed}')}
 						{sub(/__OUTPUTLEVEL__/,'${outputLevel}')}
@@ -137,8 +137,8 @@ function CreateSimJobFiles()
 				# * Generate the submit files (sub)
 					local outputFile="${outputDir_sub}/sub_${packageName}_mc_${jobNo}.sh"
 					echo "#!/bin/bash" > "${outputFile}" # empty file and write first line
-					echo "{ boss.exe \"${outputDir_sim}/sim_${packageName}_${jobNo}.txt\"; } &> \"${outputDir_log}/sim_${packageName}_${jobNo}.log\"" >> "${outputFile}"
-					echo "{ boss.exe \"${outputDir_rec}/rec_${packageName}_${jobNo}.txt\"; } &> \"${outputDir_log}/rec_${packageName}_${jobNo}.log\"" >> "${outputFile}"
+					echo "{ boss.exe \"${outputDir_sim}/sim_${packageName}_${jobNo}.job\"; } &> \"${outputDir_log}/sim_${packageName}_${jobNo}.log\"" >> "${outputFile}"
+					echo "{ boss.exe \"${outputDir_rec}/rec_${packageName}_${jobNo}.job\"; } &> \"${outputDir_log}/rec_${packageName}_${jobNo}.log\"" >> "${outputFile}"
 					ChangeLineEndingsFromWindowsToUnix "${outputFile}"
 					chmod +x "${outputFile}"
 

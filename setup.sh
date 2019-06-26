@@ -13,9 +13,9 @@ export ${repoName}="$(pwd)"
 alias cdjobs="cd ${BOSS_JobSubmitter}"
 alias reloadjobsubmitter="source ${BOSS_JobSubmitter}/setup.sh"
 
-export templateFile_ana="${BOSS_JobSubmitter}/templates/analysis.txt"
-export templateFile_rec="${BOSS_JobSubmitter}/templates/reconstruction.txt"
-export templateFile_sim="${BOSS_JobSubmitter}/templates/simulation.txt"
+export templateFile_ana="${BOSS_JobSubmitter}/templates/analysis.job"
+export templateFile_rec="${BOSS_JobSubmitter}/templates/reconstruction.job"
+export templateFile_sim="${BOSS_JobSubmitter}/templates/simulation.job"
 
 source "utilities/Aliases.sh"
 source "utilities/CreateAnaJobFiles.sh"

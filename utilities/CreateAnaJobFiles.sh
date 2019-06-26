@@ -84,9 +84,16 @@ function CreateAnaJobFiles()
 	# * ------- Create file inventory -------  * #
 	# * ====================================== * #
 		local identifier="${inputFiles//\//_}"
-		[[ ${identifier:0:1} == "_" ]] && identifier=${identifier:1}
+		local subDir="${inputFiles}"
+		if [[ ${identifier:0:1} == "_" ]]; then
+			identifier=${identifier:1}
+			subDir=${subDir:1}
+		fi
 		if [[ -d "${inputFiles}" ]]; then
-			[[ $(basename ${identifier}) =~ "_events" ]] && identifier=$(basename ${inputFiles})
+			if [[ $(basename ${identifier}) =~ "_events" ]]; then
+				identifier=$(basename ${inputFiles})
+				subDir=$(basename ${inputFiles})
+			fi
 			CreateFilenameInventoryFromDirectory "${inputFiles}" "${BOSS_JobSubmitter}/filenames/${identifier}.txt" ${nFilesPerJob} "dst"
 			if [[ $? != 0 ]]; then
 				PrintError "Function CreateFilenameInventoryFromDirectory failed"
@@ -115,15 +122,15 @@ function CreateAnaJobFiles()
 	# * ============================= * #
 
 		# * Output directories
-			outputDir_ana="${BOSS_JobSubmitter}/ana/${packageName}/${identifier}"
-			outputDir_rec="${BOSS_JobSubmitter}/rec/${packageName}/${identifier}"
-			outputDir_sub="${BOSS_JobSubmitter}/sub/${packageName}/${identifier}"
-			outputDir_root="${BOSS_StarterKit_OutputDir}/root/${packageName}/${identifier}"
-			outputDir_log="${BOSS_StarterKit_OutputDir}/log/${packageName}/${identifier}"
+			outputDir_ana="${BOSS_JobSubmitter}/ana/${packageName}/${subDir}"
+			outputDir_rec="${BOSS_JobSubmitter}/rec/${packageName}/${subDir}"
+			outputDir_sub="${BOSS_JobSubmitter}/sub/${packageName}/${subDir}"
+			outputDir_root="${BOSS_StarterKit_OutputDir}/root/${packageName}/${subDir}"
+			outputDir_log="${BOSS_StarterKit_OutputDir}/log/${packageName}/${subDir}"
 
 		# * User input * #
 			nJobs=$(ls ${searchTerm} | wc -l)
-			echo "This will create \"${packageName}_*.txt\" analysis job option files with ${nEventsPerJob} events each."
+			echo "This will create \"${packageName}_*.job\" analysis job option files with ${nEventsPerJob} events each."
 			echo "These files will be written to folder:"
 			echo "   \"${outputDir_ana}\""
 			echo "   \"${outputDir_sub}\""
@@ -149,13 +156,13 @@ function CreateAnaJobFiles()
 		# * Loop over input files * #
 			jobNo=0 # set counter
 			for file in $(ls ${searchTerm}); do
-				echo "Adding DST files from \"$(basename "${file}")\" to \"ana_${packageName}_${jobNo}.txt\""
+				echo "Adding DST files from \"$(basename "${file}")\" to \"ana_${packageName}_${jobNo}.job\""
 
 				# * Format file for implementation into vector
 					FormatTextFileToCppVectorArguments "${file}"
 
 				# * Generate the analysis files (ana)
-					outputFile="${outputDir_ana}/ana_${packageName}_${jobNo}.txt"
+					outputFile="${outputDir_ana}/ana_${packageName}_${jobNo}.job"
 					# Replace simple parameters in template
 					awk '{flag = 1}
 						{sub(/__INPUT_JOB_OPTIONS__/,"'${inputJobOptions}'")}
@@ -176,7 +183,7 @@ function CreateAnaJobFiles()
 				# * Generate the submit files (sub)
 					outputFile="${outputDir_sub}/sub_${packageName}_ana_${jobNo}.sh"
 					echo "#!/bin/bash" > "${outputFile}" # empty file and write first line
-					echo "{ boss.exe \"${outputDir_ana}/ana_${packageName}_${jobNo}.txt\"; } &> \"${outputDir_log}/ana_${packageName}_${jobNo}.log\"" >> "${outputFile}"
+					echo "{ boss.exe \"${outputDir_ana}/ana_${packageName}_${jobNo}.job\"; } &> \"${outputDir_log}/ana_${packageName}_${jobNo}.log\"" >> "${outputFile}"
 					ChangeLineEndingsFromWindowsToUnix "${outputFile}"
 					chmod +x "${outputFile}"
 
@@ -194,6 +201,6 @@ function CreateAnaJobFiles()
 			"Succesfully created ${jobNo} \"${packageName}\" job files with ${nEventsPerJob} events each in folder:\n  \"${outputDir_ana}\""
 
 
-	SubmitJobs "${packageName}/${identifier}" "${packageName}_ana"
+	SubmitJobs "${packageName}/${subDir}" "${packageName}_ana"
 	cd "${currentPath}"
 }
