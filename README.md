@@ -40,4 +40,4 @@ CreateAnaJobFiles < $BOSS_JobSubmitter/CreateAnaJobFiles.txt
 CreateSimJobFiles < $BOSS_JobSubmitter/CreateSimJobFiles.txt
 ```
 
-**WARNING**: Both commands ask whether the jobs should be omitted to `hep_sub`, so keep this in mind.
+**WARNING**: Both commands ask whether the jobs should be submitted to `hep_sub`, so keep this in mind when automising your input in this way.
