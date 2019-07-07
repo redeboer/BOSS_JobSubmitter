@@ -67,7 +67,7 @@ function CreateSimJobFiles()
 
 		local totalNevents=$(echo $((${nJobs} * ${nEventsPerJob})))
 		local totalNevents_format=$(printf "%'d" ${totalNevents})
-		local outputSubdir="${packageName}/${totalNevents_format}_events"
+		local outputSubdir="${packageName}/$(basename ${decayCard})/${totalNevents_format}_events"
 
 
 	# * ============================= * #
