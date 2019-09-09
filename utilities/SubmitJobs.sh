@@ -48,3 +48,20 @@ function SubmitJobs()
 	cd "${currentPath}"
 }
 export SubmitJobs
+
+function Submit()
+{
+	local n=0
+	for arg in ${@}; do
+		n=$(expr $n + $(ls -d ${arg} | grep -E "^.*\.sh$" | wc -l))
+	done
+	AskForInput "Submit $n jobs?"
+	[[ $? != 0 ]] && return 0
+	for arg in ${@}; do
+		for file in $(ls -d ${arg} | grep -E "^.*\.sh$"); do
+			chmod +x "${file}"
+			hep_sub -g physics "${file}"
+		done
+	done
+}
+export Submit

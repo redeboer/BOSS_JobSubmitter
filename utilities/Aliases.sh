@@ -19,4 +19,5 @@
 # * ======================= * #
 
 	alias myjobs="hep_q -u ${USER}"
+	alias nrjobs="echo -e \"You have:\\n$(myjobs | tail -1 | cut -d ";" -f 1):$(myjobs | tail -1 | cut -d ";" -f 2 | cut -d "," -f 3);$(myjobs | tail -1 | cut -d ";" -f 2 | cut -d "," -f 4);$(myjobs | tail -1 | cut -d ";" -f 2 | cut -d "," -f 5)\""
 	alias alljobs="hep_q | less"
