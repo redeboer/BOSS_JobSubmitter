@@ -91,8 +91,8 @@ function CreateAnaJobFiles()
 		fi
 		if [[ -d "${inputFiles}" ]]; then
 			if [[ $(basename ${identifier}) =~ "_events" ]]; then
-				identifier=$(basename ${inputFiles})
-				subDir=$(basename ${inputFiles})
+				identifier="$(basename "${inputFiles}")"
+				subDir="$(basename "$(dirname "${inputFiles}")")/$(basename "${inputFiles}")"
 			fi
 			CreateFilenameInventoryFromDirectory "${inputFiles}" "${BOSS_JobSubmitter}/filenames/${identifier}.txt" ${nFilesPerJob} "dst"
 			if [[ $? != 0 ]]; then
@@ -148,10 +148,12 @@ function CreateAnaJobFiles()
 
 		# * Create and EMPTY scripts directory * #
 			CreateOrEmptyDirectory "${outputDir_ana}"
-			CreateOrEmptyDirectory "${outputDir_sub}"
 		# * Create and EMPTY output directory * #
+			mkdir -p "${outputDir_sub}"
 			mkdir -p "${outputDir_log}"
 			mkdir -p "${outputDir_root}"
+			rm -f $(ls ${outputDir_sub}/sub_${packageName}_ana_*.sh)
+
 
 		# * Loop over input files * #
 			jobNo=0 # set counter
