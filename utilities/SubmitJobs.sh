@@ -65,3 +65,14 @@ function Submit()
 	done
 }
 export Submit
+
+function nrjobs()
+{
+	local tailrow=$(hep_q -u ${USER} | tail -1)
+	local njobs=$(echo $tailrow | cut -d ";" -f 1)
+	local nidle=$(echo $tailrow | cut -d ";" -f 2 | cut -d "," -f 3)
+	local nrunn=$(echo $tailrow | cut -d ";" -f 2 | cut -d "," -f 4)
+	local nheld=$(echo $tailrow | cut -d ";" -f 2 | cut -d "," -f 5)
+	echo -e "You have $njobs:$nidle,$nrunn,$nheld"
+}
+export nrjobs
