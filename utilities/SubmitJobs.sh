@@ -73,6 +73,10 @@ function nrjobs()
 	local nidle=$(echo $tailrow | cut -d ";" -f 2 | cut -d "," -f 3)
 	local nrunn=$(echo $tailrow | cut -d ";" -f 2 | cut -d "," -f 4)
 	local nheld=$(echo $tailrow | cut -d ";" -f 2 | cut -d "," -f 5)
-	echo -e "You have $njobs:$nidle,$nrunn,$nheld"
+	if [[ "$njobs" == "0 jobs" ]]; then
+		echo "You have no jobs running"
+	else
+		echo -e "You have $njobs:$nidle,$nrunn,$nheld"
+	fi
 }
 export nrjobs
