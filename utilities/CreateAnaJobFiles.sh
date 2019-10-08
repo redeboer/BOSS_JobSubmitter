@@ -158,13 +158,14 @@ function CreateAnaJobFiles()
 		# * Loop over input files * #
 			jobNo=0 # set counter
 			for file in $(ls ${searchTerm}); do
-				echo "Adding DST files from \"$(basename "${file}")\" to \"ana_${packageName}_${jobNo}.job\""
+				local jobFile="ana_${packageName}_${jobNo}.job"
+				printf "\rWriting file \"${jobFile}\" ($(expr ${jobNo} + 1)/${nJobs})"
 
 				# * Format file for implementation into vector
 					FormatTextFileToCppVectorArguments "${file}"
 
 				# * Generate the analysis files (ana)
-					outputFile="${outputDir_ana}/ana_${packageName}_${jobNo}.job"
+					outputFile="${outputDir_ana}/${jobFile}"
 					# Replace simple parameters in template
 					awk '{flag = 1}
 						{sub(/__INPUT_JOB_OPTIONS__/,"'${inputJobOptions}'")}
@@ -185,7 +186,7 @@ function CreateAnaJobFiles()
 				# * Generate the submit files (sub)
 					outputFile="${outputDir_sub}/sub_${packageName}_ana_${jobNo}.sh"
 					echo "#!/bin/bash" > "${outputFile}" # empty file and write first line
-					echo "{ boss.exe \"${outputDir_ana}/ana_${packageName}_${jobNo}.job\"; } &> \"${outputDir_log}/ana_${packageName}_${jobNo}.log\"" >> "${outputFile}"
+					echo "{ boss.exe \"${outputDir_ana}/${jobFile}\"; } &> \"${outputDir_log}/ana_${packageName}_${jobNo}.log\"" >> "${outputFile}"
 					ChangeLineEndingsFromWindowsToUnix "${outputFile}"
 					chmod +x "${outputFile}"
 

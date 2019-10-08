@@ -37,6 +37,15 @@ function SplitTextFile()
     local maxNLines=${2:-10}
   # * Check arguments
     CheckIfFileExists "${fileToSplit}"
+    local nfiles=$(cat "${fileToSplit}" | wc -l)
+    local njobs=$(expr ${nfiles} / ${maxNLines})
+    [[ $(expr ${nfiles} % ${maxNLines}) != 0 ]] && njobs=$(expr $njobs + 1)
+    if [[ ${njobs} -gt 1000 ]]; then
+      local maxNLinesOld=$maxNLines
+      maxNLines=$(expr ${nfiles} / 1000)
+      [[ $(expr ${nfiles} % 1000) != 0 ]] && maxNLines=$(expr ${maxNLines} + 1)
+      PrintWarning "Splitting into ${nfiles} files into ${maxNLinesOld} lines results in ${njobs} jobs, which is above 1000. The number of lines will be increased to ${maxNLines}."
+    fi
   # * Extract path, filename, and extension for prefix * #
     local path=$(dirname "${fileToSplit}")
     local filename=$(basename "${fileToSplit}")
