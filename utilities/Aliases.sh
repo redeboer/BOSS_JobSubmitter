@@ -5,18 +5,15 @@
 # * ------- FUNCTIONS ------- * #
 # * ========================= * #
 
-	function cdjobs()
-	{
-		local subfolder="${1:-}"
-		cd "${BOSS_JobSubmitter}/${subfolder}"
-	}
-	export cdjobs
-
-
+function cdjobs() {
+  local subfolder="${1:-}"
+  cd "${BOSS_JobSubmitter}/${subfolder}"
+}
+export cdjobs
 
 # * ======================= * #
 # * ------- ALIASES ------- * #
 # * ======================= * #
 
-	alias myjobs="hep_q -u ${USER}"
-	alias alljobs="hep_q | less"
+alias myjobs="hep_q -u ${USER}"
+alias alljobs="hep_q | less"

@@ -1,8 +1,7 @@
 #!/bin/bash -
 source "${BOSS_StarterKit}/setup/FunctionsPrint.sh"
 
-function CleanupJobs()
-{
+function CleanupJobs() {
   local listsim=$(find sim -type f -iname "sim_*.txt")
   local listrec=$(find rec -type f -iname "rec_*.txt")
   local listana=$(find ana -type f -iname "ana_*.txt")
@@ -16,13 +15,13 @@ function CleanupJobs()
   echo "  \"${BOSS_JobSubmitter}/filenames\" ($nfiles files)"
   AskForInput "Continue?"
   currentPath="$(pwd)"
-  cd "${BOSS_JobSubmitter}" && \
-  rm -f $(find sim -type f -iname "sim_*.txt") && \
-  rm -f $(find rec -type f -iname "rec_*.txt") && \
-  rm -f $(find ana -type f -iname "ana_*.txt") && \
-  rm -f $(find sub -type f -iname "sub_*.sh") && \
-  rm -f filenames/* && \
-  find . -empty -type d -delete && \
-  cd "${currentPath}"
+  cd "${BOSS_JobSubmitter}" \
+    && rm -f $(find sim -type f -iname "sim_*.txt") \
+    && rm -f $(find rec -type f -iname "rec_*.txt") \
+    && rm -f $(find ana -type f -iname "ana_*.txt") \
+    && rm -f $(find sub -type f -iname "sub_*.sh") \
+    && rm -f filenames/* \
+    && find . -empty -type d -delete \
+    && cd "${currentPath}"
 }
 export CleanupJobs
