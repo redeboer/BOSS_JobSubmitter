@@ -1,0 +1,8 @@
+name: boss-jobsubmitter
+channels:
+  - defaults
+dependencies:
+  - python>=3.6,<3.9
+  - pip
+  - pip:
+      - -r requirements.txt

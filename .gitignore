@@ -1,60 +1,37 @@
+# Output files
+*.dst
+*.pdf
+*.raw
+*.root
+*.rtraw
+
 CreateAnaJobFiles.txt
 CreateSimJobFiles.txt
 
-filenames/*
-sim/*
-rec/*
 ana/*
+filenames/*
+rec/*
+sim/*
 sub/*
 
-# Windows files
-desktop.ini
-
-# Visual Studio Code
-.vscode
-*.code-workspace
-
-# Prerequisites
+# Build files
+*.a
+*.app
 *.d
-extLibs/**/**
-
-# Compiled Object files
-*.slo
+*.dll
+*.dylib
+*.exe
+*.la
+*.lai
+*.lib
 *.lo
 *.o
 *.obj
-
-# Precompiled Headers
-*.gch
-*.pch
-
-# Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
-
-# Fortran module files
-*.mod
-*.smod
-
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-*.lib
-
-# Executables
-*.exe
 *.out
-*.app
-
-# BOSS temporary files
-*.bosserr
-*.bosslog
-*.tmp
+*.slo
+*.so
 
 # CMT files
-cmt
 **.cmtref
 **.fferr
 **.ffwarn
@@ -65,6 +42,17 @@ cmt
 **.makesav
 **.shstamp
 **.stamp
+**/cmt/cleanup.*
+**/cmt/setup.*
+*/*/*/*/*/cmt/cleanup.*
+*/*/*/*/*/cmt/setup.*
+*/*/*/*/cmt/cleanup.*
+*/*/*/*/cmt/setup.*
+*/*/*/cmt/cleanup.*
+*/*/*/cmt/setup.*
+*/*/cmt/cleanup.*
+*/*/cmt/setup.*
+.sematic.cache
 core.*
 fort.*
 
@@ -75,20 +63,24 @@ Repository
 Root
 Tag
 
-# Binaries
-**.[oad]
-**.do
-**.exe
-**.make
-**.so
-*ACLiC_dict_rdict.pcm
-execute
-main
-workarea/InstallArea
+# Fortran module files
+*.mod
+*.smod
+
+# Precompiled Headers
+*.gch
+*.pch
 
 # Temporary files
 *.bosserr
 *.bosslog
 *.tmp
-temp
-temp.sh
+
+# Virtual environments
+*venv/
+.tox/
+pyvenv*/
+
+# Settings
+.idea/
+**.code-workspace
